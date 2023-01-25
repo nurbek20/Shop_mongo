@@ -4,6 +4,8 @@ import MyInputs from '../../components/my-inputs';
 import {Link} from "react-router-dom"
 import './auth.css'
 import { authServices } from '../../http/auth-services';
+import { getMeReduxServices } from '../../redux/services';
+import {useDispatch, useSelector} from "react-redux"
 
 const initialState={
     email:"",
@@ -12,7 +14,7 @@ const initialState={
 
 const SignIn=()=>{
     const [form, setForm]=useState(initialState)
-
+    const dispatch=useDispatch()
     const handleChange=(e)=>{
         setForm({
             ...form,
@@ -23,6 +25,7 @@ const SignIn=()=>{
         e.preventDefault();
         const data = await authServices.signInServices({...form})
         console.log("signing>>", data)
+        dispatch(getMeReduxServices())
         setForm(initialState)
     }
     return(

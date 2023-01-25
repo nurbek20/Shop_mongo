@@ -53,7 +53,7 @@ const Register = () => {
                         onChange={handleChange}
                     />
                     <MyButtons>Регистрация</MyButtons>
-                    <Link to="/auth/sign-in">есть аккаунт?</Link>
+                    <Link to="/auth/sign-in">Есть аккаунт</Link>
                 </div>
             </form>
         </div>
