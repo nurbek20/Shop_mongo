@@ -19,7 +19,36 @@ export const authReducer=(state=initialState, action)=>{
                 user: action.payload
             }
         }
+        case LOGOUT:{
+            return{
+                ...state,
+                user:{}
+            }
+        }
+        case SHOW_LOADING:{
+            return {
+                loading:true
+            }
+        }
+        case HIDDEN_LOADING:{
+            return{
+                ...state,
+                loading:false
+            }
+        }
+        case HIDDEN_ERROR:{
+            return{
+                ...state,
+                error:null
+            }
+        }
+        case SHOW_ERROR:{
+            return{
+                ...state,
+                error:"Ой что то не так!"
+            }
+        }
         default :
-        return state
+            return state
     }
 }

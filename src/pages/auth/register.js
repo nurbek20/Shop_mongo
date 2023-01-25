@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import MyButtons from './../../components/my-buttons';
 import MyInputs from './../../components/my-inputs';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import './auth.css'
 import { authServices } from './../../http/auth-services';
+import { useSelector } from 'react-redux';
 
 const initialState = {
     fullName: "",
@@ -13,6 +14,8 @@ const initialState = {
 
 const Register = () => {
     const [form, setForm] = useState(initialState)
+    const { loading } = useSelector(state => state.authReducer)
+    const navigate = useNavigate()
 
     const handleChange = (event) => {
         setForm(
@@ -21,12 +24,12 @@ const Register = () => {
                 [event.target.name]: event.target.value
             })
     }
-    const handleSubmit=async(e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        const data=await authServices.registerServices({...form});
+        const data = await authServices.registerServices({ ...form });
         console.log("data>>>", data)
+        navigate('/auth/sign-in')
         setForm(initialState)
-        
     }
 
     return (
@@ -52,7 +55,7 @@ const Register = () => {
                         placeholder="password"
                         onChange={handleChange}
                     />
-                    <MyButtons>Регистрация</MyButtons>
+                    <MyButtons>{loading?'Загрузка...':'Регистрация'}</MyButtons>
                     <Link to="/auth/sign-in">Есть аккаунт</Link>
                 </div>
             </form>

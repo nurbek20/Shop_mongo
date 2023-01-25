@@ -1,10 +1,10 @@
 import './App.css';
 import Main from './pages/main'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-        <Main/>
+    <div >
+      <Main />
     </div>
   );
 }

@@ -14,6 +14,8 @@ const initialState={
 
 const SignIn=()=>{
     const [form, setForm]=useState(initialState)
+    const {loading}=useSelector(state=>state.authReducer)
+
     const dispatch=useDispatch()
     const handleChange=(e)=>{
         setForm({
@@ -26,6 +28,7 @@ const SignIn=()=>{
         const data = await authServices.signInServices({...form})
         console.log("signing>>", data)
         dispatch(getMeReduxServices())
+        localStorage.setItem("userData", JSON.stringify(data.data.token))
         setForm(initialState)
     }
     return(
@@ -45,7 +48,7 @@ const SignIn=()=>{
                     placeholder="Password"
                     onChange={handleChange}
                     />
-                    <MyButtons>Войти</MyButtons>
+                    <MyButtons>{loading?"Загрузка...":"Войти"}</MyButtons>
                     <Link to="/auth/register">Нет аккаунта</Link>
                 </div>
             </form>
